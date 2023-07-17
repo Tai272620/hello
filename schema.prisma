@@ -1,0 +1,28 @@
+//mysql://USER:PASSWORD@HOST:PORT/DATABASE
+datasource db {
+    provider = "mysql"
+    url      = "mysql://root:@127.0.0.1:3306/my_db"
+}
+
+model Users {
+    id        Int     @id @default(autoincrement())
+    email     String  @unique
+    firstName String?
+    lastName  String?
+    password  String?
+}
+
+model Products {
+    id       Int        @id @default(autoincrement())
+    name     String?
+    price    Float?
+    avatar   String?
+    pictures Pictures[]
+}
+
+model Pictures {
+    id        Int      @id @default(autoincrement())
+    product   Products @relation(fields: [productId], references: [id])
+    productId Int
+    url       String?
+}
